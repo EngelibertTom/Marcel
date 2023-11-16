@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Animated, Dimensions, PanResponder, StyleSheet, Text} from 'react-native';
+import {Animated, Dimensions, PanResponder, StyleSheet, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
@@ -74,13 +74,10 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
     });
 
     return (
-
             <Animated.View {...panResponder.panHandlers}  style={[styles.card, { transform: [{ translateY: pan.y }] }]}>
 
-                <Image style={styles.image} source={card.image}></Image>
-                <Text style={styles.name}>{card.name}</Text>
-                <Text style={styles.explanation}>{card.explanation}</Text>
-
+                <Image style={styles.image} source={product.name + ".png"}></Image>
+                <Text style={styles.name}>{product.name}</Text>
             </Animated.View>
 
 
