@@ -8,8 +8,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 
 const HomeScreen = ({navigation}) => {
 
-
-
     const [fireImageOpacity, setFireImageOpacity] = useState(new Animated.Value(0));
     const [cloudImageOpacity, setCloudImageOpacity] = useState(new Animated.Value(0));
     const [products, setProducts] = useState([]);
@@ -30,15 +28,11 @@ const HomeScreen = ({navigation}) => {
             const data = await response.json();
             await setProducts(data);
         }
-        else {
-            console.log("non");
-        }
     }
 
     useEffect(() => {
         componentDidMount();
     }, []);
-
 
     const updateFireImageOpacity = (opacity) => {
         setFireImageOpacity(opacity);
@@ -65,8 +59,6 @@ const HomeScreen = ({navigation}) => {
 
 
     return (
-
-
         <Animated.View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
             <LinearGradient  colors={['#341782', '#11072C']} style={styles.background}/>
@@ -82,7 +74,7 @@ const HomeScreen = ({navigation}) => {
             ))}
 
             <Animated.Image style={[styles.bottomImage, {opacity: fireImageOpacity}]}
-                            source={require('../assets/fire.png')}/>
+                            source={require(`../assets/fire.png`)}/>
 
         </Animated.View>
 

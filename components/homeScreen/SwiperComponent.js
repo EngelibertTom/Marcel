@@ -5,8 +5,8 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const Users = [
-    {id: "1", uri: require('../assets/icon.png')},
-    {id: "2", uri: require('../assets/favicon.png')},
+    {id: "1", uri: require('../../assets/icon.png')},
+    {id: "2", uri: require('../../assets/favicon.png')},
 ]
 
 class SwiperComponent extends React.Component {

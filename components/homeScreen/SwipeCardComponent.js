@@ -5,17 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
-const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateCloudImageOpacity, backgroundImage}) => {
-    // const imageName = product.id;
-    // const imagePath = `../assets/${encodeURIComponent(imageName)}`;
-    //
-    // console.log(imagePath);
-
-
-    console.log(backgroundImage);
-
-
-
+const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateCloudImageOpacity}) => {
     const navigation = useNavigation();
     const [ecoGuess, setEcoGuess] = useState('');
 
@@ -33,10 +23,10 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
 
             if (gestureState.dy < 0) {
                 setAdditionalText('Paradis');
-                setEcoGuess(true);
+                setEcoGuess("Paradis");
             } else {
                 setAdditionalText('Enfer');
-                setEcoGuess(false);
+                setEcoGuess("Enfer");
             }
 
             Animated.timing(additionalTextOpacity, {
@@ -57,9 +47,7 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
                 updateCloudImageOpacity(0)
             }
         },
-
         onPanResponderRelease: (e, gestureState) => {
-
             if (Math.abs(gestureState.dy) > 120) {
                 Animated.timing(pan,
                     {
@@ -73,7 +61,8 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
                     }
                 });
 
-                navigation.navigate('DetailsScreen', {guess: ecoGuess});
+                navigation.navigate('DetailsScreen', {ecoGuess: ecoGuess, product: product});
+
             } else {
                 Animated.parallel([
                     Animated.spring(pan, {toValue: {x: 0, y: 0}, useNativeDriver: false}),
@@ -97,11 +86,6 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
                 <Text style={styles.categories}>{product.categories.map(category => `${category}, `)}</Text>
 
             </Animated.View>
-
-
-
-
-
     );
 };
 
@@ -126,7 +110,6 @@ const styles = StyleSheet.create({
         width: 250,
         height: 250,
         alignSelf: 'center',
-
         resizeMode:'contain'
 
     },
