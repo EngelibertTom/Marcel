@@ -1,17 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder } from 'react-native';
+import {Animated, Dimensions, PanResponder, View} from 'react-native';
 
-const SCREEN_HEIGHT = Dimensions.get('window').height
-const SCREEN_WIDTH = Dimensions.get('window').width
-import Icon from 'react-native-vector-icons/Ionicons'
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
 const Users = [
-    { id: "1", uri: require('../assets/icon.png') },
-    { id: "2", uri: require('../assets/favicon.png') },
+    {id: "1", uri: require('../assets/icon.png')},
+    {id: "2", uri: require('../assets/favicon.png')},
 ]
 
 class SwiperComponent extends React.Component {
     constructor() {
-        super()
+        super();
 
         this.position = new Animated.ValueXY()
         this.state = {
@@ -59,7 +59,7 @@ class SwiperComponent extends React.Component {
         this.PanResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
             onPanResponderMove: (evt, gestureState) => {
-                this.position.setValue({ x: gestureState.dx, y: gestureState.dy })
+                this.position.setValue({x: gestureState.dx, y: gestureState.dy})
             },
             onPanResponderRelease: (evt, gestureState) => {
                 if (gestureState.dx > 120) {
@@ -75,9 +75,9 @@ class SwiperComponent extends React.Component {
 
     swipeRight() {
         Animated.spring(this.position, {
-            toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy }
+            toValue: {x: SCREEN_WIDTH + 100, y: gestureState.dy}
         }).start(() => {
-            this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+            this.setState({currentIndex: this.state.currentIndex + 1}, () => {
                 this.resetPosition()
             })
         })
@@ -85,9 +85,9 @@ class SwiperComponent extends React.Component {
 
     swipeLeft() {
         Animated.spring(this.position, {
-            toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+            toValue: {x: -SCREEN_WIDTH - 100, y: gestureState.dy}
         }).start(() => {
-            this.setState({ currentIndex: this.state.currentIndex + 1 }, () => {
+            this.setState({currentIndex: this.state.currentIndex + 1}, () => {
                 this.resetPosition()
             })
         })
@@ -95,7 +95,7 @@ class SwiperComponent extends React.Component {
 
     resetPosition() {
         Animated.spring(this.position, {
-            toValue: { x: 0, y: 0 },
+            toValue: {x: 0, y: 0},
             friction: 4
         }).start()
     }
@@ -109,7 +109,12 @@ class SwiperComponent extends React.Component {
                     <Animated.View
                         {...this.PanResponder.panHandlers}
                         key={item.id}
-                        style={[this.rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute' }]}
+                        style={[this.rotateAndTranslate, {
+                            height: SCREEN_HEIGHT - 120,
+                            width: SCREEN_WIDTH,
+                            padding: 10,
+                            position: 'absolute'
+                        }]}
                     >
                         {/* Your UI components here */}
                         {/* ... */}
@@ -121,7 +126,7 @@ class SwiperComponent extends React.Component {
                         key={item.id}
                         style={[{
                             opacity: this.nextCardOpacity,
-                            transform: [{ scale: this.nextCardScale }],
+                            transform: [{scale: this.nextCardScale}],
                             height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute'
                         }]}
                     >
@@ -135,12 +140,12 @@ class SwiperComponent extends React.Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                <View style={{ height: 60 }}></View>
-                <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
+                <View style={{height: 60}}></View>
+                <View style={{flex: 1}}>
                     {this.renderUsers()}
                 </View>
-                <View style={{ height: 60 }}></View>
+                <View style={{height: 60}}></View>
             </View>
         );
     }

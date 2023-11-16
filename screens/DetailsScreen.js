@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import "styled-components/native"
 
 const DetailsScreen = ({ route }) => {
     // Déclarez resultBun en dehors de useEffect
