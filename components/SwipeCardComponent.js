@@ -1,11 +1,21 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {Animated, Dimensions, PanResponder, StyleSheet, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
-const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateCloudImageOpacity}) => {
+const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateCloudImageOpacity, backgroundImage}) => {
+    // const imageName = product.id;
+    // const imagePath = `../assets/${encodeURIComponent(imageName)}`;
+    //
+    // console.log(imagePath);
+
+
+    console.log(backgroundImage);
+
+
+
     const navigation = useNavigation();
     const [ecoGuess, setEcoGuess] = useState('');
 
@@ -23,10 +33,10 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
 
             if (gestureState.dy < 0) {
                 setAdditionalText('Paradis');
-                setEcoGuess("Paradis");
+                setEcoGuess(true);
             } else {
                 setAdditionalText('Enfer');
-                setEcoGuess("Enfer");
+                setEcoGuess(false);
             }
 
             Animated.timing(additionalTextOpacity, {
@@ -47,7 +57,9 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
                 updateCloudImageOpacity(0)
             }
         },
+
         onPanResponderRelease: (e, gestureState) => {
+
             if (Math.abs(gestureState.dy) > 120) {
                 Animated.timing(pan,
                     {
@@ -70,14 +82,20 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
 
                 setAdditionalText('');
             }
+            updateFireImageOpacity(0);
+            updateCloudImageOpacity(0)
+
         },
     });
 
     return (
             <Animated.View {...panResponder.panHandlers}  style={[styles.card, { transform: [{ translateY: pan.y }] }]}>
 
-                <Image style={styles.image} source={product.name + ".png"}></Image>
+                <Image style={styles.image} source={backgroundImage}></Image>
+
                 <Text style={styles.name}>{product.name}</Text>
+                <Text style={styles.categories}>{product.categories.map(category => `${category}, `)}</Text>
+
             </Animated.View>
 
 
@@ -89,8 +107,8 @@ const SwipeCard = ({product, onSwipeComplete, updateFireImageOpacity, updateClou
 
 const styles = StyleSheet.create({
     card: {
-        height: SCREEN_HEIGHT - 180,
-        width: SCREEN_WIDTH - 30,
+        height: SCREEN_HEIGHT - 220,
+        width: SCREEN_WIDTH - 60,
         backgroundColor: '#8C52FF',
         borderRadius: 10,
         shadowColor: '#000',
@@ -108,7 +126,7 @@ const styles = StyleSheet.create({
         width: 250,
         height: 250,
         alignSelf: 'center',
-        textAlignVertical: 'center',
+
         resizeMode:'contain'
 
     },
@@ -123,10 +141,11 @@ const styles = StyleSheet.create({
         marginTop:25,
     },
 
-    explanation: {
+    categories: {
         fontFamily:'Poppins-Regular',
         color: 'white',
         paddingLeft:15,
+        paddingRight:15,
         alignSelf: 'flex-start',
         marginTop:15,
     }
