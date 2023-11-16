@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const DetailsScreen = ({ route }) => {
     // Déclarez resultBun en dehors de useEffect
@@ -19,9 +19,19 @@ const DetailsScreen = ({ route }) => {
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text>{resultTitle}</Text>
+            <Text style={styles.result}>{resultTitle}</Text>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+
+    result: {
+
+        fontFamily:'Bangers-Regular'
+
+    }
+
+})
 
 export default DetailsScreen;

@@ -127,9 +127,9 @@ const SwipeCard = ({ card, onSwipeComplete, updateFireImageOpacity, updateCloudI
 
             <Animated.View {...panResponder.panHandlers}  style={[styles.card, { transform: [{ translateY: pan.y }] }]}>
 
-
-                <Text>{card.text}</Text>
-                <Animated.Text style={{ opacity: additionalTextOpacity }}>{additionalText}</Animated.Text>
+                <Image style={styles.image} source={card.image}></Image>
+                <Text style={styles.name}>{card.name}</Text>
+                <Text style={styles.explanation}>{card.explanation}</Text>
 
             </Animated.View>
 
@@ -142,9 +142,9 @@ const SwipeCard = ({ card, onSwipeComplete, updateFireImageOpacity, updateCloudI
 
 const styles = StyleSheet.create({
     card: {
-        height: SCREEN_HEIGHT - 120,
-        width: SCREEN_WIDTH,
-        backgroundColor: '#9a9898',
+        height: SCREEN_HEIGHT - 180,
+        width: SCREEN_WIDTH - 30,
+        backgroundColor: '#8C52FF',
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -158,9 +158,31 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: '100%',
-        height: 'auto',
+        width: 250,
+        height: 250,
+        alignSelf: 'center',
+        textAlignVertical: 'center',
+        resizeMode:'contain'
+
     },
+
+    name: {
+        color: 'white',
+        fontFamily:'Poppins-Regular',
+        fontWeight: 'bold',
+        fontSize:24,
+        alignSelf: 'flex-start',
+        paddingLeft:15,
+        marginTop:25,
+    },
+
+    explanation: {
+        fontFamily:'Poppins-Regular',
+        color: 'white',
+        paddingLeft:15,
+        alignSelf: 'flex-start',
+        marginTop:15,
+    }
 });
 
 export default SwipeCard;
